@@ -42,7 +42,7 @@
         "signingIdentity": null
       },
       "resources": [
-        "./appData"
+       
       ],
       "shortDescription": "",
       "targets": "all",
