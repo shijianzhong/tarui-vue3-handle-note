@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-11-01 14:14:04
  * @LastEditors: 史建忠 shijianzhongg@icloud.com
- * @LastEditTime: 2022-12-26 10:47:06
+ * @LastEditTime: 2022-12-26 10:56:00
  * @FilePath: /vue-project/README.md
 -->
 <p align="center">
@@ -16,17 +16,17 @@
 
 ## 👀 预览
 
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103241.332ce6ti69q0.webp" > 
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103305.5j4sbmraqjs0.webp" center">
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103325.1owplxtdgqtc.webp"> 
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103355.1wpq70tci2f4.webp">
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103539.4k3611cxav40.webpg" > 
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103641.3qkn4jq2xq80.webp">
-<img width="320" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103658.1x3lzxvfdphc.webp">
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103241.332ce6ti69q0.webp" > 
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103305.5j4sbmraqjs0.webp" center">
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103325.1owplxtdgqtc.webp"> 
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103355.1wpq70tci2f4.webp">
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103539.4k3611cxav40.webpg" > 
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103641.3qkn4jq2xq80.webp">
+<img width="600" src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/WX20221226-103658.1x3lzxvfdphc.webp">
 
 ---
 
-<a href="https://www.buymeacoffee.com/skings" target="_blank"><img src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/Coffee-Instagram-Template.3rxrxm2t9i00.webp" alt="Buy Me A Coffee" style="height: 60px !important;" ></a>
+<a href="https://www.buymeacoffee.com/skings" target="_blank"><img src="https://cdn.staticaly.com/gh/shijianzhong/pics@master/resume/Coffee-Instagram-Template.3rxrxm2t9i00.webp" alt="Buy Me A Coffee" style="height: 120px !important;" ></a>
 
 ## ❓常见问题
 
