@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-11-27 10:00:09
- * @LastEditors: 史建忠 shijianzhongg@icloud.com
- * @LastEditTime: 2022-12-20 11:45:25
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-08 13:39:18
  * @FilePath: /vue-project/src-tauri/src/db_controller.rs
  */
 
@@ -43,7 +43,7 @@ impl Dao {
             return row.get(0) as Result<i32>;
         });
         let count = rs.unwrap();
-        println!("长度：：：：{}", count);
+        // println!("长度：：：：{}", count);
         if count > 0 {
             return true;
         } else {
@@ -63,7 +63,7 @@ impl Dao {
     }
     pub fn delete_item(&self, item_id: String) -> bool {
         let sql: String = format!("DELETE FROM `todo_items` where `item_id` = '{}';", item_id);
-        println!("{}", &sql);
+        // println!("{}", &sql);
         let size = self.con.execute(&sql, []);
         match size {
             Ok(_) => return true,
@@ -84,8 +84,7 @@ impl Dao {
         }
     }
     pub fn update_item(&self, item: Item) -> bool {
-        println!("进来了啊！！！！");
-        println!("{:#?}", item);
+        // println!("{:#?}", item);
         let sql: String = format!(
             "update `todo_items` set `item_name`= '{}',
             `item_type`={},`item_desc`='{}',`item_state`={},
@@ -101,9 +100,9 @@ impl Dao {
             item.item_desc_type,
             item.item_id
         );
-        println!("sql语句::::{}", sql);
+        // println!("sql语句::::{}", sql);
         let size = self.con.execute(&sql, []);
-        println!("{:#?}", size);
+        // println!("{:#?}", size);
         match size {
             Ok(_) => true,
             Err(_) => false,
@@ -124,7 +123,7 @@ impl Dao {
             item.item_end.as_str(),
             item.item_desc_type.as_str()
         );
-        println!("{}", sql);
+        // println!("{}", sql);
         let size = self.con.execute(&sql, []);
         match size {
             Ok(v) => Some(v == 1),
@@ -140,7 +139,7 @@ impl Dao {
             item_type.item_type_name.as_str(),
             item_type.item_type_desc.as_str()
         );
-        println!("add_item_type::::{}", sql);
+        // println!("add_item_type::::{}", sql);
         let size = self.con.execute(&sql, []);
         match size {
             Ok(v) => Some(v == 1),
@@ -162,11 +161,9 @@ impl Dao {
                 })
             })
             .unwrap();
-        println!("执行到这里了");
         let mut items = Vec::new();
         for item in item_iterator {
-            println!("执行到这里了");
-            println!("{:#?}", item);
+            // println!("{:#?}", item);
             items.push(item?);
         }
         Ok(items)
@@ -196,7 +193,7 @@ impl Dao {
             .unwrap();
         let mut items = Vec::new();
         for item in item_iterator {
-            println!("{:#?}", item);
+            // println!("{:#?}", item);
             items.push(item?);
         }
         Ok(items)
@@ -225,7 +222,7 @@ impl Dao {
             .unwrap();
         let mut items = Vec::new();
         for item in item_iterator {
-            println!("{:#?}", item);
+            // println!("{:#?}", item);
             items.push(item?);
         }
         Ok(items)

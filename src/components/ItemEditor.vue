@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-11-29 15:20:46
- * @LastEditors: 史建忠 shijianzhongg@icloud.com
- * @LastEditTime: 2022-12-20 11:44:35
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-08 13:34:42
  * @FilePath: /vue-project/src/components/ItemEditor.vue
 -->
 <template>
@@ -28,7 +28,7 @@
         </div>
         <div class="editor-content">
             <mavon-editor v-if="(form.item_desc_type == '1')" v-model="form.item_desc"></mavon-editor>
-            <c-canvas v-else  v-model="form.item_desc" view-type="edit" item-id="cavans"></c-canvas>
+            <c-canvas v-else v-model="form.item_desc" view-type="edit" item-id="cavans"></c-canvas>
         </div>
     </div>
 </template>
@@ -36,10 +36,11 @@
 import { useTaskStore } from '@/stores/task'
 import { ElMessage } from 'element-plus'
 import CCanvas from './CCanvas.vue'
-import { reactive, ref, onUnmounted, unref, isRef, onMounted, watch, watchEffect } from 'vue'
+import { reactive, ref, onUnmounted, unref, isRef, onMounted, watch, watchEffect, onBeforeMount, onBeforeUnmount } from 'vue'
 import { useGreet, useAddData, useUpdateItem } from '@/libs/bridge'
 import { emit, once } from '@tauri-apps/api/event';
 
+let unlisten_saveFrom = reactive(null)
 const taskStore = useTaskStore();
 const props = defineProps({
     item: <any>Object
@@ -70,7 +71,7 @@ watchEffect((newValue) => {
 
 const itemDescTypeChange = () => {
     // console.log('初始化的时候就到这里了', form.value.item_desc_type)
-  
+
 }
 
 const dateFormat = (dat: Date) => {
@@ -84,44 +85,49 @@ const dateFormat = (dat: Date) => {
     var newDate = year + "-" + mon + "-" + data + " " + hour + ":" + min + ":" + seon;
     return newDate;
 }
+onBeforeMount(async() => {
+    unlisten_saveFrom = await once('saveFrom', (e) => {
+        if (form.value.item_desc_type == '2') {
+            // console.log(canvas.value.toObject())
+            // console.log(JSON.stringify(canvas.value.toJSON()))
+            // form.value.item_desc = JSON.stringify(canvas.value.toJSON())
+            // console.log('到涂鸦这里了啊 啊 啊！！！！！');
+        }
+        form.value.item_start = dateFormat(new Date())
+        console.log(form.value)
+        console.log(e.payload)
+        if (e.payload == "edit_item") {
+            useUpdateItem(form.value)
+                .then(res => {
+                    if (res) {
+                        emit('getItems')
+                        ElMessage({
+                            message: '更新成功',
+                            type: 'success',
+                        })
+                    }
+                })
+        } else {
+            useAddData(form.value, "add_item")
+                .then(res => {
+                    if (res) {
+                        emit('getItems')
+                        ElMessage({
+                            message: '新增成功',
+                            type: 'success',
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(`报错了${err}`)
+                })
+        }
 
-once('saveFrom', (e) => {
-    if (form.value.item_desc_type == '2') {
-        // console.log(canvas.value.toObject())
-        // console.log(JSON.stringify(canvas.value.toJSON()))
-        // form.value.item_desc = JSON.stringify(canvas.value.toJSON())
-        // console.log('到涂鸦这里了啊 啊 啊！！！！！');
-    }
-    form.value.item_start = dateFormat(new Date())
-    console.log(form.value)
-    console.log(e.payload)
-    if (e.payload == "edit_item") {
-        useUpdateItem(form.value)
-            .then(res => {
-                if (res) {
-                    emit('getItems')
-                    ElMessage({
-                        message: '更新成功',
-                        type: 'success',
-                    })
-                }
-            })
-    } else {
-        useAddData(form.value, "add_item")
-            .then(res => {
-                if (res) {
-                    emit('getItems')
-                    ElMessage({
-                        message: '新增成功',
-                        type: 'success',
-                    })
-                }
-            })
-            .catch(err => {
-                console.log(`报错了${err}`)
-            })
-    }
+    })
+})
 
+onBeforeUnmount(()=>{
+    unlisten_saveFrom()
 })
 
 

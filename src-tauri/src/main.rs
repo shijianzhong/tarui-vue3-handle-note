@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-11-01 14:27:55
- * @LastEditors: shijianzhong shijianzhong
- * @LastEditTime: 2022-12-09 10:14:07
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-08 13:36:42
  * @FilePath: /vue-project/src-tauri/src/main.rs
  */
 #![cfg_attr(
@@ -64,32 +64,31 @@ fn get_item_types() -> String {
 }
 #[tauri::command]
 fn vitural_delete_item(item_id:String) -> bool {
-  println!("收到假删除参数{}",item_id);
+  // println!("收到假删除参数{}",item_id);
   let dao = Dao::create();
   dao.vitural_delete_item(item_id) //假删除
 }
 #[tauri::command]
 fn delete_item(item_id:String) -> bool {
-  println!("收到真的删除参数{}",item_id);
+  // println!("收到真的删除参数{}",item_id);
   let dao = Dao::create();
   dao.delete_item(item_id)  //真删除
 }
 #[tauri::command]
 fn update_item(item:String) -> bool {
-  println!("更新item对象：{}",item);
+  // println!("更新item对象：{}",item);
   let dao = Dao::create();
   let parsed:Item = serde_json::from_str(item.as_str()).unwrap();
   dao.update_item(parsed) //
 }
 #[tauri::command]
 fn add_item(form: &str) -> String {
-  println!("this is  fe's value :{}", form);
+  // println!("this is  fe's value :{}", form);
   let parsed: Item = serde_json::from_str(form).unwrap();
-  println!("------------------- ");
-  println!("{:#?}", parsed);
+  // println!("{:#?}", parsed);
   let dao = Dao::create();
   if dao.check_table_existed_else_created("todo_items") {
-    println!("nothing");
+    // println!("nothing");
   }
   let r = dao.add_item(parsed);
   if let Some(true) = r {
@@ -100,12 +99,12 @@ fn add_item(form: &str) -> String {
 }
 #[tauri::command]
 fn add_item_type(form: &str) -> bool {
-  println!("this is  fe's value :{}", form);
+  // println!("this is  fe's value :{}", form);
   let parsed: ItemType = serde_json::from_str(form).unwrap();
-  print!("{:#?}", parsed);
+  // print!("{:#?}", parsed);
   let dao = Dao::create();
   if dao.check_table_existed_else_created("todo_items") {
-    println!("nothing");
+    // println!("nothing");
   }
   let r = dao.add_item_type(parsed);
   if let Some(true) = r {

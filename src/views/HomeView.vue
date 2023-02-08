@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-11-01 14:14:04
- * @LastEditors: shijianzhong shijianzhong
- * @LastEditTime: 2022-12-03 23:15:20
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-08 13:30:53
  * @FilePath: /vue-project/src/views/HomeView.vue
 -->
 <template>
@@ -34,7 +34,7 @@
     <!-- <itemEditor key="edit_item" v-else-if="dialogObj.content == 'edit_item'" :item="dialogObj.itemObj"></itemEditor> -->
     <template #footer>
       <span class="dialog-footer">
-        <el-button size="small" @click="dialogNewItemType = false">Cancel</el-button>
+        <el-button size="small" @click="dialogNewItemType = false">取消</el-button>
         <el-button size="small" type="primary" @click="saveForm">
           保存
         </el-button>
@@ -158,6 +158,7 @@ const getItemTypes = () => {
 }
 getItemTypes();
 const saveForm = () => {
+  console.log("执行我了奥--------------",dialogObj.value.content)
   switch (dialogObj.value.content) {
     case 'new_item_type':
       saveItemType();
