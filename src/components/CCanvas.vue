@@ -1,7 +1,8 @@
 <template>
     <div class="ccanvas-container">
         <div class="paint-toolbar" v-if="viewType=='edit'">
-            <el-button size="small" :type="drawPencilBtnState" @click="startDraw">画笔</el-button>
+            <el-button size="small" v-if="drawPencilBtnState=='primary'" type="primary" @click="startDraw">画笔</el-button>
+            <el-button size="small" v-else @click="startDraw">画笔</el-button>
             <el-button size="small" @click="addCicle">圆</el-button>
             <el-button size="small" @click="addTriangle">三角形</el-button>
             <el-button size="small" @click="addRect">方形</el-button>
