@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          TAURI_KEY_PASSWORD: ''  TAURI_KEY_PASSWORD: "" # 密钥的加密文本，与seecrts时输入的密码一致即可。如果未输入密码，则此处留空，如果输入了密码，则也需要添加到 secrets 中，然后使用 ${{ secrets.TAURI_PRIVATE_KEY_PASSWORD }} 这种形式
+          TAURI_KEY_PASSWORD: '' 
         with:
           tagName: v__VERSION__
           releaseName: v__VERSION__
