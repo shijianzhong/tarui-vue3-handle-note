@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-11-01 14:14:04
  * @LastEditors: shijianzhong 994129509@qq.com
- * @LastEditTime: 2023-02-08 13:30:53
+ * @LastEditTime: 2023-02-10 21:53:10
  * @FilePath: /vue-project/src/views/HomeView.vue
 -->
 <template>
@@ -29,11 +29,12 @@
         <el-input v-model="ItemTypeForm.item_type_desc" type="textarea" placeholder="关于该类型的描述，不填也行" />
       </el-form-item>
     </el-form>
+    <iframe class="mframe" src="https://www.chatgpt3.net/" v-else-if="dialogObj.content == 'chat_gpt'"></iframe>
     <itemEditor key="new_item" v-else :item="dialogObj.itemObj"></itemEditor>
     <!-- -if="dialogObj.content == 'new_item'" -->
     <!-- <itemEditor key="edit_item" v-else-if="dialogObj.content == 'edit_item'" :item="dialogObj.itemObj"></itemEditor> -->
     <template #footer>
-      <span class="dialog-footer">
+      <span class="dialog-footer" v-if="dialogObj.content != 'chat_gpt'">
         <el-button size="small" @click="dialogNewItemType = false">取消</el-button>
         <el-button size="small" type="primary" @click="saveForm">
           保存
@@ -52,6 +53,9 @@
         <el-dropdown-item @click="newItemTypeAction">新建类型</el-dropdown-item>
         <el-dropdown-item @click="newItemAction">
           新建事项
+        </el-dropdown-item>
+        <el-dropdown-item @click="chatGpt">
+          chatGpt
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -105,6 +109,9 @@ const newItemTypeAction =()=>{
 const newItemAction =()=>{
   openDialog('new_item');
 }
+const chatGpt = () =>{
+  openDialog('chat_gpt');
+}
 const openDialog = (msg:any,msgObj:any={})=>{
   switch (msg) {
     case "new_item_type":
@@ -129,6 +136,14 @@ const openDialog = (msg:any,msgObj:any={})=>{
         content: "edit_item",
         fullscreen: true,
         itemObj: msgObj.payload.item
+      }
+      break;
+    case "chat_gpt":
+      dialogObj.value = {
+        title: "",
+        content: "chat_gpt",
+        fullscreen: true,
+        itemObj: {}
       }
       break;
   }
@@ -221,5 +236,13 @@ const saveItemType = () => {
   // height: 45px;
   // border-radius: 50%;
   // background-color: var(--el-color-primary);
+}
+.mframe{
+  width:100%;
+  height: 100%;
+  border: none;
+}
+.el-dialog__body{
+  height: calc(100% - 100px);
 }
 </style>
