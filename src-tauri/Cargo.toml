@@ -18,7 +18,7 @@ tauri-build = { version = "1.1.1", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.1.1", features = ["api-all", "updater"] }
-rusqlite = "0.27.0"
+rusqlite = { version = "0.28.0", features = ["bundled"] }
 dirs = "4.0"
 uuid = { version="1.0.0",feature = ["v4","fast-rng","macro-diagnostics"] }
 [features]
