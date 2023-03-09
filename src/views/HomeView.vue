@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-11-01 14:14:04
  * @LastEditors: shijianzhong 994129509@qq.com
- * @LastEditTime: 2023-02-10 21:53:10
+ * @LastEditTime: 2023-02-17 15:37:44
  * @FilePath: /vue-project/src/views/HomeView.vue
 -->
 <template>
@@ -34,7 +34,7 @@
     <!-- -if="dialogObj.content == 'new_item'" -->
     <!-- <itemEditor key="edit_item" v-else-if="dialogObj.content == 'edit_item'" :item="dialogObj.itemObj"></itemEditor> -->
     <template #footer>
-      <span class="dialog-footer" v-if="dialogObj.content != 'chat_gpt'">
+      <span class="dialog-footer">
         <el-button size="small" @click="dialogNewItemType = false">取消</el-button>
         <el-button size="small" type="primary" @click="saveForm">
           保存
@@ -70,6 +70,7 @@ import { useGetItemTypes, useAddData } from '@/libs/bridge'
 import { useTaskStore } from '@/stores/task';
 import itemEditor from "@/components/ItemEditor.vue";
 import { useGetItems } from '@/libs/bridge'
+import { useRouter } from "vue-router";
 import {
   Check,
   Delete,
@@ -80,7 +81,7 @@ import {
 } from '@element-plus/icons-vue'
 const taskStore = useTaskStore();
 const formLabelWidth = '80px'
-
+const router = useRouter();
 const getItem = () => {
   useGetItems().then((res: any) => {
     console.log("获取全局数据")
@@ -103,16 +104,16 @@ let dialogObj = ref({
   fullscreen: false,
   itemObj: {}
 })
-const newItemTypeAction =()=>{
+const newItemTypeAction = () => {
   openDialog('new_item_type');
 }
-const newItemAction =()=>{
+const newItemAction = () => {
   openDialog('new_item');
 }
-const chatGpt = () =>{
+const chatGpt = () => {
   openDialog('chat_gpt');
 }
-const openDialog = (msg:any,msgObj:any={})=>{
+const openDialog = (msg: any, msgObj: any = {}) => {
   switch (msg) {
     case "new_item_type":
       dialogObj.value = {
@@ -155,7 +156,18 @@ listen('rust_event', (msg: any) => {
     msg.payload = JSON.parse(msg.payload);
   }
   console.log(msg.payload.message)
-  openDialog(msg.payload.message,msg)
+  switch (msg.payload.message) {
+    case "open_ai":
+      router.push('/ai')
+      break;
+    case "note":
+      router.push('/')
+      break;
+    default:
+      openDialog(msg.payload.message, msg)
+      break;
+  }
+
 })
 const ItemTypeForm = reactive({
   item_type: '',
@@ -173,7 +185,7 @@ const getItemTypes = () => {
 }
 getItemTypes();
 const saveForm = () => {
-  console.log("执行我了奥--------------",dialogObj.value.content)
+  console.log("执行我了奥--------------", dialogObj.value.content)
   switch (dialogObj.value.content) {
     case 'new_item_type':
       saveItemType();
@@ -237,12 +249,14 @@ const saveItemType = () => {
   // border-radius: 50%;
   // background-color: var(--el-color-primary);
 }
-.mframe{
-  width:100%;
+
+.mframe {
+  width: 100%;
   height: 100%;
   border: none;
 }
-.el-dialog__body{
+
+.el-dialog__body {
   height: calc(100% - 100px);
 }
 </style>

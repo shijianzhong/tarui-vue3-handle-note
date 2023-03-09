@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-11-01 14:27:55
  * @LastEditors: shijianzhong 994129509@qq.com
- * @LastEditTime: 2023-02-08 13:36:42
+ * @LastEditTime: 2023-02-21 09:16:09
  * @FilePath: /vue-project/src-tauri/src/main.rs
  */
 #![cfg_attr(
@@ -15,6 +15,9 @@ use db_controller::Dao;
 mod models;
 use models::matter_item::{Item,ItemType};
 use tauri::{ Manager, Window};
+mod gpt;
+use gpt::openai;
+// use models::open_ai_mod::{OpenAIResponse,OpenAIRequest};
 // static mut CURRENT_APP: &App;
 static mut MAIN_WINDOW: Option<Window> = None;
 fn main() {
@@ -29,9 +32,24 @@ fn main() {
     .menu(app_menu::init(&context))
     .on_menu_event(app_menu::handler)
     .invoke_handler(tauri::generate_handler![greet, get_items, add_item,add_item_type,vitural_delete_item,
-      get_item_types,delete_item,update_item,get_trash_items])
+      get_item_types,delete_item,update_item,get_trash_items,ai_qs])
     .run(context)
     .expect("error while running tauri application");
+}
+
+#[tauri::command]
+async fn ai_qs(user_input:String)->String{
+  println!("进来了哈哈");
+  let tmp =  openai::qs(user_input.to_string()).await;
+  match tmp{
+    Ok(o)=>{
+      println!("{:#?}",o);
+      let data = serde_json::to_string(&o).unwrap();
+      data
+    },
+    Err(_)=>  String::from("error")
+  }
+ 
 }
 
 #[tauri::command]

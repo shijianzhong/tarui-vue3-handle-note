@@ -1,8 +1,8 @@
 // @ts-nocheck
 /*
  * @Date: 2022-11-17 15:02:39
- * @LastEditors: shijianzhong shijianzhong
- * @LastEditTime: 2022-12-03 19:40:31
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-17 14:18:39
  * @FilePath: /vue-project/src/libs/bridge.ts
  */
 import { ref, onMounted, onUnmounted, watch } from 'vue'
@@ -16,7 +16,15 @@ export function useGreet() {
     .catch(err => greetErr.value = err)
   return { greetRes, greetErr }
 }
-export function useDeleteItemByItemId(item_id,real=false) {
+export function useAi(user_input) {
+  return new Promise((resolve, reject) => {
+    invoke('ai_qs', { userInput:`${user_input}` })
+      .then(res => resolve(res))
+      .catch(err => reject(err))
+  })
+
+}
+export function useDeleteItemByItemId(item_id, real = false) {
   return new Promise((resolve, reject) => {
     invoke(real ? 'delete_item' : 'vitural_delete_item', { itemId: `${item_id}` })
       .then(res => {

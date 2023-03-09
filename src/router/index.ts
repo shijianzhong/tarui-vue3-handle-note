@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-11-01 14:14:04
- * @LastEditors: shijianzhong shijianzhong
- * @LastEditTime: 2022-11-15 21:05:06
+ * @LastEditors: shijianzhong 994129509@qq.com
+ * @LastEditTime: 2023-02-16 15:45:18
  * @FilePath: /vue-project/src/router/index.ts
  */
 import { createRouter, createWebHistory } from 'vue-router'
@@ -22,7 +22,12 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    }
+    },
+    {
+      path: '/ai',
+      name: 'ai',
+      component: () => import('../views/AiView.vue')
+    },
   ]
 })
 
